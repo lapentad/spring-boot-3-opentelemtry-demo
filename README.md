@@ -8,5 +8,5 @@ Will use a WebClient webflux to call the other service "NoTrace" on an endpoint,
 
 Similar it can be done for MVC RestTemplate
 
-![JaegerUI]([URL or file path](https://i.imgur.com/J4LmlQt.png)
+![JaegerUI](https://i.imgur.com/J4LmlQt.png)
 
