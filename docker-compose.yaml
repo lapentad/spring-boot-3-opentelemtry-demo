@@ -1,0 +1,37 @@
+version: '3.7'
+services:
+
+  jaeger:
+    container_name: jaeger
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "16686:16686" # the jaeger UI port
+      - "4317:4317" # the open telemetry grpc port for sending traces
+      - "4318:4318"
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+      - LOG_LEVEL=debug
+
+  demo-jaeger2:
+    container_name: demo-jaeger-mvc
+    image: demo-jaeger-mvc:latest
+    ports:
+      - "8090:8090"
+    environment:
+      - OTEL_SERVICE_NAME=demo-jaeger-mvc
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
+
+  demo-jaeger:
+    container_name: demo-jaeger-webflux
+    image: demo-jaeger-webflux:latest
+    ports:
+      - "8091:8091"
+    environment:
+      - OTEL_SERVICE_NAME=demo-jaeger-webflux
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
+
+  demo-jaeger3:
+    container_name: demo-jaeger-notrace
+    image: demo-jaeger-notrace:latest
+    ports:
+      - "8092:8092"
